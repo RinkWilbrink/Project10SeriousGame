@@ -19,16 +19,8 @@ public class ScriptableObjectData : MonoBehaviour
 
     void Awake()
     {
-        people = Resources.LoadAll("DialogSystemObjects", typeof(ObjectPerson));
-        messages = Resources.LoadAll("DialogSystemObjects", typeof(ObjectBubble));
-
-        /*
-         * Global List,
-         * 
-         * Check alleen het getal voor de _ en stop alle objecten die met dat getal beginnen
-         * in een list en .Add die list dan in de List<List<Object>>.
-         * 
-         */
+         people = Resources.LoadAll("DialogSystemObjects", typeof(ObjectPerson));
+         messages = Resources.LoadAll("DialogSystemObjects", typeof(ObjectBubble));
 
         // Go through all objects and
         for (int round = 1; round <= messages.Length; round++)
@@ -37,11 +29,12 @@ public class ScriptableObjectData : MonoBehaviour
             for (int i = 0; i < messages.Length; i++)
             {
                 string[] name = messages[i].name.Split('_');
+                // Check current message object if it should be added to this round
                 if (name[0] == round.ToString())
                 {
-                    //Debug.LogFormat("name is {0}!", round);
                     roundList.Add(messages[i]);
                 }
+
                 // Cleanup memory from local variables
                 name = null;
             }
@@ -50,15 +43,10 @@ public class ScriptableObjectData : MonoBehaviour
             if(roundList.Count > 0) {
                 messageList.Add(roundList);
             }
-            else {
-                //Debug.LogFormat("round list count: {0} | {1}", roundList.Count, round);
-            }
 
             // Cleanup local variable
             roundList = null;
         }
-
-        //LogListContentAndInfo();
     }
 
     private void LogListContentAndInfo()

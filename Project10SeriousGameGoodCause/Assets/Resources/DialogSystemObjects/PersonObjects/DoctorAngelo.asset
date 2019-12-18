@@ -17,3 +17,5 @@ MonoBehaviour:
   Caringness: 69
   HealthandStrength: 15
   PersonName: Dr.Angelo
+  Face: {fileID: 21300000, guid: 91c0af3049044044f8983b8a68c450d9, type: 3}
+  Body: {fileID: 0}

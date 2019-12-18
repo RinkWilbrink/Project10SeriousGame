@@ -7,5 +7,9 @@ public class ObjectPerson : PersonalityTraits
 {
     [Header("Person specific values and settings")]
     // Input some Person Scriptable Object specific items here
-    public string PersonName;
+    [SerializeField] public string PersonName;
+
+    // Sprite information for this character
+    [SerializeField] public Sprite Face;
+    [SerializeField] public Sprite Body;
 }

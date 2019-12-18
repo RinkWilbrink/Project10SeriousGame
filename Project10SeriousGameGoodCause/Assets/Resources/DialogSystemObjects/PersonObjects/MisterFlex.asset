@@ -17,3 +17,5 @@ MonoBehaviour:
   Caringness: 55
   HealthandStrength: 100
   PersonName: Mr.Flex
+  Face: {fileID: 21300000, guid: 8335b6a92a126ed46a39712b27cd32a5, type: 3}
+  Body: {fileID: 0}
