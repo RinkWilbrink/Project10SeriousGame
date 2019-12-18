@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: a5ab9ff5e1fcc4e4d991bfb8dc4eea71,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
     type: 2}
 --- !u!1 &162225902
 GameObject:
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 2955eb0e22f01524da1cb1f9ce155813,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
     type: 2}
 --- !u!1 &313351224
 GameObject:
@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 0a6119fbaee8eb14fb3e288ba055ae86,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
     type: 2}
 --- !u!1 &1629506445
 GameObject:
@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 80a2888b28f76ef4796ed7203a05d541,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
     type: 2}
 --- !u!1 &1970051009
 GameObject:
