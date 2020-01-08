@@ -5,19 +5,30 @@ using UnityEngine.UI;
 
 public class BarScript : MonoBehaviour
 {
-    [SerializeField]private Image Impressionbar;
-    [Range(0, 1)]
-    [SerializeField]
-    private float Impression;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]private Image Impressionbar;  
+    
+    private float _impression;
 
-    // Update is called once per frame
+    public float MaxImpression;
+
     void Update()
     {
-        Impressionbar.fillAmount = Impression;
+        ClampTheValues();
+        Impressionbar.fillAmount = 1 / MaxImpression * _impression;
+    }
+
+    void ClampTheValues()
+    {
+        _impression = Mathf.Clamp(_impression,0,100);
+    }
+
+    public void AddImpression(float value)
+    {
+        _impression = _impression + value;
+    }
+
+    public void MinImpression(float value)
+    {
+        _impression = _impression - value;
     }
 }
