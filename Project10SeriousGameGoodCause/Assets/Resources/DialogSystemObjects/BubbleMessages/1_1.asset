@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1_1
   m_EditorClassIdentifier: 
   Intelligence: 100
-  BuisinessOrientedness: 0
-  Caringness: 0
-  HealthandStrength: 0
-  TextMessage: 1_1
+  BuisinessOrientedness: 1
+  Caringness: 1
+  HealthandStrength: 1
+  TextMessage: Smart

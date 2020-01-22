@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2def7fc09ef6a844fad00ec9005f5499, type: 3}
   m_Name: 3_1
   m_EditorClassIdentifier: 
-  Intelligence: 0
-  BuisinessOrientedness: 0
-  Caringness: 0
+  Intelligence: 1
+  BuisinessOrientedness: 1
+  Caringness: 1
   HealthandStrength: 100
-  TextMessage: 3_1
+  TextMessage: Stronk

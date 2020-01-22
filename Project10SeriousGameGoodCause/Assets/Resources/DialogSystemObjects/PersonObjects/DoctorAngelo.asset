@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b09f6ba46e80fc499d30bec723bf92e, type: 3}
   m_Name: DoctorAngelo
   m_EditorClassIdentifier: 
-  Intelligence: 100
-  BuisinessOrientedness: 38
-  Caringness: 69
-  HealthandStrength: 15
+  Intelligence: 80
+  BuisinessOrientedness: 72
+  Caringness: 10
+  HealthandStrength: 6
   PersonName: Dr.Angelo
   Face: {fileID: 21300000, guid: 91c0af3049044044f8983b8a68c450d9, type: 3}
   Body: {fileID: 0}

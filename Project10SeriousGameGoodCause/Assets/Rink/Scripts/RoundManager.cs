@@ -161,19 +161,25 @@ public class RoundManager : MonoBehaviour
     {
         //Debug.Log(ClickedObjectBubble.name);
 
-        float I = ClickedObjectBubble.Intelligence / personInDoor.objectPerson.Intelligence;
+        //float intelligence = ((ClickedObjectBubble.Intelligence / personInDoor.objectPerson.Intelligence) * 0.001f) + 1f;
+        //float buisiness = ((ClickedObjectBubble.BuisinessOrientedness / personInDoor.objectPerson.BuisinessOrientedness) * 0.001f) + 1f;
+        //float care = ((ClickedObjectBubble.Caringness / personInDoor.objectPerson.Caringness) * 0.001f) + 0.5f;
+        //float health = ((ClickedObjectBubble.HealthandStrength / personInDoor.objectPerson.HealthandStrength) * 0.001f) + 1f;
 
-        Debug.Log("bubble: " + ClickedObjectBubble.Intelligence);
-        Debug.Log("person: " + personInDoor.objectPerson.Intelligence);
+        float intelligence =    (ClickedObjectBubble.Intelligence             / (personInDoor.objectPerson.Intelligence));
+        float buisiness =       (ClickedObjectBubble.BuisinessOrientedness    / (personInDoor.objectPerson.BuisinessOrientedness));
+        float care =            (ClickedObjectBubble.Caringness               / (personInDoor.objectPerson.Caringness));
+        float health =          (ClickedObjectBubble.HealthandStrength        / (personInDoor.objectPerson.HealthandStrength));
 
-        //AffectionCount = (5673 / 56); // do some cool calulation
+        Debug.LogFormat("I {0} / B {1} / C {2} / H {3}", intelligence, buisiness, care, health);
 
-        //Debug.Log("I: " + ClickedObjectBubble.Intelligence);
-        //Debug.Log("B: " + ClickedObjectBubble.BuisinessOrientedness);
-        //Debug.Log("C: " + ClickedObjectBubble.Caringness);
-        //Debug.Log("H: " + ClickedObjectBubble.HealthandStrength);
+        //Debug.Log(AffectionCount);
 
-        Debug.Log(I);
+        float lastAffectioCount = AffectionCount;
+
+        AffectionCount += (intelligence * buisiness * care * health);
+
+        Debug.LogFormat("name: {0} | AffectionCount: {1} | added AffectionCount: {2}", ClickedObjectBubble.name, AffectionCount, AffectionCount - lastAffectioCount);
     }
 }
 
