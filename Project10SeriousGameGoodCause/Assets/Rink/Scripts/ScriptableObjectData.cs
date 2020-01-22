@@ -22,7 +22,7 @@ public class ScriptableObjectData : MonoBehaviour
          people = Resources.LoadAll("DialogSystemObjects", typeof(ObjectPerson));
          messages = Resources.LoadAll("DialogSystemObjects", typeof(ObjectBubble));
 
-        // Go through all objects and
+        // Go through all objects and at them to their appropriate List in the Global List
         for (int round = 1; round <= messages.Length; round++)
         {
             List<Object> roundList = new List<Object>();

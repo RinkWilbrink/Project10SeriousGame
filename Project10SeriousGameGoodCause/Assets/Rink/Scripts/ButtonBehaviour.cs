@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ButtonBehaviour : MonoBehaviour
 {
+    [SerializeField] RoundManager roundManager;
     private ScriptableObjectData objectData;
 
     void Start()
@@ -13,8 +14,7 @@ public class ButtonBehaviour : MonoBehaviour
     }
     
     public void OnBubbleClick(GameObject bubbleObject){
-        bubbleHoldData bubbleData = bubbleObject.GetComponent<bubbleHoldData>();
-
-        bubbleData.Bubble = (ObjectBubble)objectData.messages[0];
+        // Give data
+        roundManager.buttonHasBeenClicked(bubbleObject.GetComponent<bubbleHoldData>().Bubble);
     }
 }

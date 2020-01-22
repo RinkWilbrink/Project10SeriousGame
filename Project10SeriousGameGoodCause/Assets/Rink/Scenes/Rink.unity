@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 9c80cb0c8fa39e443b869c21cf58682d,
     type: 2}
 --- !u!1 &110118726
 GameObject:
@@ -299,6 +299,7 @@ MonoBehaviour:
   objectPerson: {fileID: 0}
   Face: {fileID: 889280600}
   Body: {fileID: 1178324198}
+  affectionMeter: 0
 --- !u!4 &110118728
 Transform:
   m_ObjectHideFlags: 0
@@ -1544,7 +1545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 7a5e55b8e6cf1594eb7a38ce984fbd42,
     type: 2}
 --- !u!1 &1629506445
 GameObject:
@@ -1894,6 +1895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f1830ed90b24e4caa16f231500709a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundManager: {fileID: 1970051011}
 --- !u!1 &1726692442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,7 +2279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2fea10a9c40b14ab1685555b6015ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubbleData_ObjectBubble: {fileID: 11400000, guid: 57d5481a462948642a4b56491f0f3ff5,
+  bubbleData_ObjectBubble: {fileID: 11400000, guid: 55b331431c3971940a5f5650dc94fc2e,
     type: 2}
 --- !u!1 &1970051009
 GameObject:
@@ -2327,7 +2329,11 @@ MonoBehaviour:
   AffectionCount: 0
   personManager: {fileID: 1733424274}
   personInDoor: {fileID: 0}
-  faceSprite: {fileID: 21300000, guid: 91c0af3049044044f8983b8a68c450d9, type: 3}
+  buttons:
+  - {fileID: 162225902}
+  - {fileID: 12546402}
+  - {fileID: 1567410680}
+  - {fileID: 1908822593}
 --- !u!114 &1970051012
 MonoBehaviour:
   m_ObjectHideFlags: 0

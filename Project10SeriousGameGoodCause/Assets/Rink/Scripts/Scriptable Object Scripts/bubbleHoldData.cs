@@ -21,6 +21,7 @@ public class bubbleHoldData : MonoBehaviour
         gameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = bubbleData_ObjectBubble.TextMessage;
     }
 
+    // Get / Set the bubbleData_ObjectBubble value;
     public ObjectBubble Bubble
     {
         get => bubbleData_ObjectBubble;

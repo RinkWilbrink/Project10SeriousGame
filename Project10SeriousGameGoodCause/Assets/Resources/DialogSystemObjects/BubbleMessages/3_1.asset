@@ -15,5 +15,5 @@ MonoBehaviour:
   Intelligence: 0
   BuisinessOrientedness: 0
   Caringness: 0
-  HealthandStrength: 0
+  HealthandStrength: 100
   TextMessage: 3_1
