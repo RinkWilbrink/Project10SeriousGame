@@ -40,18 +40,12 @@ public class RoundManager : MonoBehaviour
 
     void Update()
     {
-        /* Test if the person can switch
-        if(counter > 5 && counter < 6) {
-            InitNewRound(1);
-
-            counter = 10;
-        }
-        else {
-            counter += Time.deltaTime;
-        }
-        //*/
-
         // TODO: make a function that can start a new round
+
+        if (personInDoor.affectionMeter >= 100)
+        {
+            initNewPerson(Random.Range(0, soData.people.Length - 1));
+        }
 
         // Change the person manually for testing.
         if(Input.GetKeyDown(KeyCode.L))
