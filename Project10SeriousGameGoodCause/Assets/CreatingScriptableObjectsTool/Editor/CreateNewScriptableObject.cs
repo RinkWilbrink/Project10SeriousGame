@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-/* -----> References, Work progress and TODO <-----
- * 
- * How to create a new SO file
- * https://stackoverflow.com/questions/50564577/creating-a-scriptable-object-in-the-unity-editor
-*/
-
 namespace ScriptableObjectTool
 {
     public enum SelectedScriptableObjectType {
@@ -44,8 +38,6 @@ namespace ScriptableObjectTool
 
         private List<List<Object>> roundList;
 
-        // ObjectPerson Variables
-        private string m_personName = null;
         // Sprite information for this character
         private Object m_PersonFace = null;
         private Object m_PersonBody = null;
@@ -241,7 +233,7 @@ namespace ScriptableObjectTool
                 GUILayout.Space(2);
 
                 // Set the body of the person
-                m_PersonFace = EditorGUILayout.ObjectField(m_PersonFace, typeof(Sprite), false);
+                m_PersonBody = EditorGUILayout.ObjectField(m_PersonBody, typeof(Sprite), false);
             }
 
             GUILayout.Space(10);
@@ -279,7 +271,7 @@ namespace ScriptableObjectTool
                                 Caringness = m_caringness,
                                 HealthandStrength = m_healthandStrength,
                                 // Object Specific values
-                                PersonName = m_personName,
+                                PersonName = newScriptableObjectName,
                                 Face = (Sprite)m_PersonFace,
                                 Body = (Sprite)m_PersonBody
                             };
@@ -313,7 +305,7 @@ namespace ScriptableObjectTool
         private void CreateFile(ObjectPerson newBubble)
         {
             // Save the new Asset File
-            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", PersonSavePath, m_personName));
+            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", PersonSavePath, newScriptableObjectName));
             AssetDatabase.SaveAssets();
 
             Selection.activeObject = newBubble;
