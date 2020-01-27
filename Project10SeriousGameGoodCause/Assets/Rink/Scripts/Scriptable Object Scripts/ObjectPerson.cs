@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Person", menuName = "DialogSystem/Person", order = 1)]
+///<summary>PersonName, Face, Body</summary>
 public class ObjectPerson : PersonalityTraits
 {
     [Header("Person specific values and settings")]

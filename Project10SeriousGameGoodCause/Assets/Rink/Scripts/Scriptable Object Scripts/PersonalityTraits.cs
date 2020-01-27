@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Intelligence, BuisinessOrientedness, Caringness, HealthandStrength</summary>
 public class PersonalityTraits : ScriptableObject
 {
     // The amount of impact the question will have on certain personality traits

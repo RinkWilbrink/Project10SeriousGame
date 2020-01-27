@@ -19,32 +19,36 @@ namespace ScriptableObjectTool
     public class CreateNewScriptableObject : EditorWindow
     {
         // Variables
-        private SelectedScriptableObjectType selectedType;
+        private SelectedScriptableObjectType selectedType, lastType;
         private List<List<Object>> messageList = new List<List<Object>>();
         // new ObjectName
         string newScriptableObjectName = null;
 
         // personality traits
-        private byte intelligence;
-        private byte buisinessOrientedness;
-        private byte Caringness;
-        private byte HealthandStrength;
+        private byte m_intelligence;
+        private byte m_buisinessOrientedness;
+        private byte m_caringness;
+        private byte m_healthandStrength;
 
         private const int maxCollectiveTraits = 100;
 
-        // ObjectBubble Variables
-        private byte roundNumber;
-        private byte indexNumber;
+        // Scriptable Object paths
+        private const string PersonSavePath = "Assets/Resources/DialogSystemObjects/PersonObjects";
+        private const string BubbleSavePath = "Assets/Resources/DialogSystemObjects/BubbleMessages";
 
-        private string newTextMessage;
+        // ObjectBubble Variables
+        private byte m_roundNumber;
+        private byte m_indexNumber;
+
+        private string m_newTextMessage;
 
         private List<List<Object>> roundList;
 
         // ObjectPerson Variables
-        private string PersonName = null;
+        private string m_personName = null;
         // Sprite information for this character
-        private Object PersonFace = null;
-        private Object PersonBody = null;
+        private Object m_PersonFace = null;
+        private Object m_PersonBody = null;
 
         // Layout variables
         const int PersonalityTraitsStartingPos = 101;
@@ -54,7 +58,15 @@ namespace ScriptableObjectTool
         [MenuItem("Create Scriptable Object/Open Tool")]
         static void CreateScriptableObjectWindow()
         {
-            GetWindow<CreateNewScriptableObject>("Create Scriptable Object");
+            // Initialize the GUI window
+            CreateNewScriptableObject createNewScriptableObject = GetWindow<CreateNewScriptableObject>("Create Scriptable Object");
+            // Call the start function
+            createNewScriptableObject.start();
+        }
+
+        public void start()
+        {
+
         }
 
         // GUI window code, buttons and other items need to be set here.
@@ -70,18 +82,18 @@ namespace ScriptableObjectTool
 
             selectedType = (SelectedScriptableObjectType)EditorGUILayout.EnumPopup(selectedType);
 
+            if(selectedType != lastType)
+            {
+                newScriptableObjectName = "";
+                lastType = selectedType;
+            }
+
             GUILayout.Space(5);
 
             GUILayout.Label("Scriptabel Object Specific Values and Variables", EditorStyles.boldLabel);
 
             GUILayout.Space(5);
-
-            /*
-            if (GUILayout.Button("Test Width"))
-            {
-                Debug.Log(Screen.width);
-            }
-            */
+            
             #region Personality Traits
 
             #region Intelligence
@@ -90,7 +102,7 @@ namespace ScriptableObjectTool
             GUILayout.Label("Intelligence");
 
             Rect IRect = new Rect(IntFieldStartPos, getRectPos(1), getPropperScreenWidth(), 15);
-            intelligence = (byte)EditorGUI.IntSlider(IRect, intelligence, 0, 100);
+            m_intelligence = (byte)EditorGUI.IntSlider(IRect, m_intelligence, 0, 100);
 
             GUILayout.EndHorizontal();
             #endregion
@@ -103,11 +115,7 @@ namespace ScriptableObjectTool
             GUILayout.Label("BuisinessOrientedness");
 
             Rect BORect = new Rect(IntFieldStartPos, getRectPos(2), getPropperScreenWidth(), 15);
-            buisinessOrientedness = (byte)EditorGUI.IntSlider(BORect, buisinessOrientedness, 0, 100);
-
-            //buisinessOrientedness = (byte)EditorGUI.IntField(BORect, buisinessOrientedness);
-            //buisinessOrientedness = (byte)EditorGUILayout.IntSlider(buisinessOrientedness, 0, 100);
-            //buisinessOrientedness = (byte)EditorGUILayout.IntField(buisinessOrientedness);
+            m_buisinessOrientedness = (byte)EditorGUI.IntSlider(BORect, m_buisinessOrientedness, 0, 100);
 
             GUILayout.EndHorizontal();
             #endregion
@@ -120,7 +128,7 @@ namespace ScriptableObjectTool
             GUILayout.Label("Caringness");
 
             Rect CRect = new Rect(IntFieldStartPos, getRectPos(3), getPropperScreenWidth(), 15);
-            Caringness = (byte)EditorGUI.IntSlider(CRect, Caringness, 0, 100);
+            m_caringness = (byte)EditorGUI.IntSlider(CRect, m_caringness, 0, 100);
 
             GUILayout.EndHorizontal();
             #endregion
@@ -133,7 +141,7 @@ namespace ScriptableObjectTool
             GUILayout.Label("HealthandStrength");
 
             Rect HaSRect = new Rect(IntFieldStartPos, getRectPos(4), getPropperScreenWidth(), 15);
-            HealthandStrength = (byte)EditorGUI.IntSlider(HaSRect, HealthandStrength, 0, 100);
+            m_healthandStrength = (byte)EditorGUI.IntSlider(HaSRect, m_healthandStrength, 0, 100);
 
             GUILayout.EndHorizontal();
             #endregion
@@ -142,7 +150,26 @@ namespace ScriptableObjectTool
 
             GUILayout.Space(1);
 
-            GUILayout.Label(string.Format("Personality traits collective total = {0} / {1}", intelligence + buisinessOrientedness + HealthandStrength + Caringness, maxCollectiveTraits));
+            GUILayout.BeginHorizontal();
+
+            GUILayout.Label("Personality traits collective total = ");
+
+            GUILayout.Space(-84);
+
+            // Set the color for the text
+            short statCount = (short)(m_intelligence + m_buisinessOrientedness + m_healthandStrength + m_caringness);
+            if (statCount >= 0 && statCount <= 100) {
+                GUI.color = Color.green;
+            }
+            else {
+                GUI.color = Color.red;
+            }
+
+            GUILayout.Label(string.Format("{0} / {1}", m_intelligence + m_buisinessOrientedness + m_healthandStrength + m_caringness, maxCollectiveTraits));
+
+            // Reset The Layout
+            GUI.color = Color.white;
+            GUILayout.EndHorizontal();
 
             GUILayout.Space(10);
 
@@ -158,79 +185,110 @@ namespace ScriptableObjectTool
                 GUILayout.Label(new GUIContent("New Object Name = ", "This number can't be 0, Round 0 doesn't exist"));
 
                 // Prevent the Round from being 0, there is no Round 0. It's quite a simple spell but unbreakable
-                if (roundNumber < 1) {
-                    roundNumber = 1;
+                if (m_roundNumber < 1) {
+                    m_roundNumber = 1;
                 }
-                roundNumber = (byte)EditorGUILayout.IntField(roundNumber);
 
+                // Set roundList
                 roundList = null;
                 roundList = getAllScriptableObjects();
 
-                indexNumber = (byte)(roundList.ToArray()[roundNumber - 1].Count + 1);
+                if (m_roundNumber > roundList.Count + 1) {
+                    GUI.color = Color.red;
+                } else if (m_roundNumber == roundList.Count + 1) {
+                    GUI.color = Color.white;
+                } else {
+                    GUI.color = Color.green;
+                }
+                // Set roundList
+                roundList = null;
+                roundList = getAllScriptableObjects();
 
-                GUILayout.Label(string.Format("_ {0}", indexNumber.ToString()));
+                // set the Round number
+                m_roundNumber = (byte)EditorGUILayout.IntField(m_roundNumber);
+
+                GUI.color = Color.white;
+
+                // Set index number and check if the round exists, if not set Index to 1.
+                try {
+                    m_indexNumber = (byte)(roundList.ToArray()[m_roundNumber - 1].Count + 1);
+                }
+                catch {
+                    m_indexNumber = 1;
+                }
+
+                GUILayout.Label(string.Format("_ {0}", m_indexNumber.ToString()));
+
+                // Set the name of the new Scriptable Object.
+                newScriptableObjectName = string.Format("{0}_{1}", m_roundNumber, m_indexNumber);
 
                 GUILayout.Space(70);
                 EditorGUILayout.EndHorizontal();
 
                 GUILayout.Space(5);
 
-                newTextMessage = EditorGUILayout.TextField("Text Message", newTextMessage);
+                m_newTextMessage = EditorGUILayout.TextField("Text Message", m_newTextMessage);
             }
             if (selectedType == SelectedScriptableObjectType.ObjectPerson)
             {
-                PersonName = EditorGUILayout.TextField("Person Name", PersonName);
+                newScriptableObjectName = EditorGUILayout.TextField("Person Name", newScriptableObjectName);
 
                 GUILayout.Space(10);
 
                 // Set the Face of the person
-                PersonFace = EditorGUILayout.ObjectField(PersonFace, typeof(Sprite), false);
+                m_PersonFace = EditorGUILayout.ObjectField(m_PersonFace, typeof(Sprite), false);
 
                 GUILayout.Space(2);
 
                 // Set the body of the person
-                PersonFace = EditorGUILayout.ObjectField(PersonFace, typeof(Sprite), false);
+                m_PersonFace = EditorGUILayout.ObjectField(m_PersonFace, typeof(Sprite), false);
             }
 
             GUILayout.Space(10);
 
             if (GUILayout.Button("Create new Scriptable Object"))
             {
-                if ((intelligence + buisinessOrientedness + HealthandStrength + Caringness) <= maxCollectiveTraits)
+                if ((m_intelligence + m_buisinessOrientedness + m_healthandStrength + m_caringness) <= maxCollectiveTraits)
                 {
-                    ScriptableObjectsTypes newScriptableObject = new ScriptableObjectsTypes()
-                    {
-                        Intelligence = 1,
-                        BuisinessOrientedness = 2,
-                        HealthandStrength = 3,
-                        Caringness = 4
-                    };
-
-                    if (selectedType == SelectedScriptableObjectType.ObjectBubble)
-                    {
-                        newScriptableObject.TextMessage = newTextMessage;
-
-                        CreateFile(new ObjectBubble(), "TestFolder");
-                    }
-                    if (selectedType == SelectedScriptableObjectType.ObjectPerson)
-                    {
-
-                        //CreateFile(new ObjectPerson(), "TestFolder");
-                    }
-
                     if (!string.IsNullOrEmpty(newScriptableObjectName) && !string.IsNullOrWhiteSpace(newScriptableObjectName))
                     {
-                        ObjectBubble newBubble = new ObjectBubble()
+                        // Create a new Scriptable Object
+                        if (selectedType == SelectedScriptableObjectType.ObjectBubble)
                         {
-                            Intelligence = 1,
-                            BuisinessOrientedness = 2,
-                            Caringness = 3,
-                            HealthandStrength = 4,
-                            TextMessage = "Test Text Bubble"
-                        };
+                            if(string.IsNullOrEmpty(m_newTextMessage) || string.IsNullOrWhiteSpace(m_newTextMessage)) {
+                                Debug.LogErrorFormat("Error with Text Message! message: {0}.", m_newTextMessage);
+                                return;
+                            }
+                            ObjectBubble newBubble = new ObjectBubble() {
+                                Intelligence = m_intelligence,
+                                BuisinessOrientedness = m_buisinessOrientedness,
+                                Caringness = m_caringness,
+                                HealthandStrength = m_healthandStrength,
+                                // Object Specific values
+                                TextMessage = m_newTextMessage
+                            };
 
-                        // Create new Scriptable Object
-                        //CreateFile(newBubble, "TestFolder");
+                            CreateFile(newBubble);
+                        }
+                        if (selectedType == SelectedScriptableObjectType.ObjectPerson)
+                        {
+                            ObjectPerson newPerson = new ObjectPerson()
+                            {
+                                Intelligence = m_intelligence,
+                                BuisinessOrientedness = m_buisinessOrientedness,
+                                Caringness = m_caringness,
+                                HealthandStrength = m_healthandStrength,
+                                // Object Specific values
+                                PersonName = m_personName,
+                                Face = (Sprite)m_PersonFace,
+                                Body = (Sprite)m_PersonBody
+                            };
+
+                            CreateFile(newPerson);
+                        }
+                    }
+                    else {
+                        Debug.LogErrorFormat("Error with newScriptableObjectName! name: {0}.", newScriptableObjectName);
                     }
                 }
                 else
@@ -243,19 +301,19 @@ namespace ScriptableObjectTool
         /// <summary></summary>
         /// <param name="newBubble">The Object Bubble</param>
         /// <param name="FilePath"></param>
-        private void CreateFile(ObjectBubble newBubble, string FilePath)
+        private void CreateFile(ObjectBubble newBubble)
         {
             // Save the new Asset File
-            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", FilePath, newScriptableObjectName));
+            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", BubbleSavePath, newScriptableObjectName));
             AssetDatabase.SaveAssets();
 
             Selection.activeObject = newBubble;
             AssetDatabase.Refresh();
         }
-        private void CreateFile(ObjectPerson newBubble, string FilePath)
+        private void CreateFile(ObjectPerson newBubble)
         {
             // Save the new Asset File
-            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", FilePath, newScriptableObjectName));
+            AssetDatabase.CreateAsset(newBubble, string.Format("{0}/{1}.asset", PersonSavePath, m_personName));
             AssetDatabase.SaveAssets();
 
             Selection.activeObject = newBubble;
