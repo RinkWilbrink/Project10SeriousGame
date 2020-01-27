@@ -58,6 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Project10SeriousGameGoodCause/Temp/UnityLockfile
+Project10SeriousGameGoodCause/Temp
 *.log
 *.bakert
+Project10SeriousGameGoodCause/Assets/EasyScripts
