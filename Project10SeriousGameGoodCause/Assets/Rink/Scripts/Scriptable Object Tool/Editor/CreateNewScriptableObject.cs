@@ -30,8 +30,6 @@ namespace ScriptableObjectTool
         private byte Caringness;
         private byte HealthandStrength;
 
-        private const int maxCollectiveTraits = 100;
-
         // ObjectBubble Variables
         private byte roundNumber;
         private byte indexNumber;
@@ -140,11 +138,7 @@ namespace ScriptableObjectTool
 
             #endregion
 
-            GUILayout.Space(1);
-
-            GUILayout.Label(string.Format("Personality traits collective total = {0} / {1}", intelligence + buisinessOrientedness + HealthandStrength + Caringness, maxCollectiveTraits));
-
-            GUILayout.Space(10);
+            GUILayout.Space(6);
 
             GUILayout.Label("Scriptable Object specific values", EditorStyles.boldLabel);
 
@@ -196,47 +190,61 @@ namespace ScriptableObjectTool
 
             if (GUILayout.Button("Create new Scriptable Object"))
             {
-                if ((intelligence + buisinessOrientedness + HealthandStrength + Caringness) <= maxCollectiveTraits)
+                ScriptableObjectsTypes newScriptableObject = new ScriptableObjectsTypes()
                 {
-                    ScriptableObjectsTypes newScriptableObject = new ScriptableObjectsTypes()
+                    Intelligence = 1,
+                    BuisinessOrientedness = 2,
+                    HealthandStrength = 3,
+                    Caringness = 4
+                };
+
+                if (selectedType == SelectedScriptableObjectType.ObjectBubble)
+                {
+                    newScriptableObject.TextMessage = newTextMessage;
+
+                    CreateFile(new ObjectBubble(), "TestFolder");
+                }
+                if(selectedType == SelectedScriptableObjectType.ObjectPerson)
+                {
+
+                    //CreateFile(new ObjectPerson(), "TestFolder");
+                }
+
+                if (!string.IsNullOrEmpty(newScriptableObjectName) && !string.IsNullOrWhiteSpace(newScriptableObjectName))
+                {
+                    // Create the new file if there is not empty/null string.
+
+                    /*
+                     * Create here a generic ObjectBubble or ObjectPerson type
+                     * 
+                     * genericSriptableObject<ObjectBubble> test = new genericSriptableObject<ObjectBubble>(newBubble);
+                     * 
+                     * genericSriptableObject<ObjectPerson> test = new genericSriptableObject<ObjectPerson>(newBubble);
+                     * 
+                     * Pass this as a parameter into CreateNewFile(newBubble, "TestFolder");
+                     */
+
+                    ObjectBubble newBubble = new ObjectBubble()
                     {
                         Intelligence = 1,
                         BuisinessOrientedness = 2,
-                        HealthandStrength = 3,
-                        Caringness = 4
+                        Caringness = 3,
+                        HealthandStrength = 4,
+                        TextMessage = "Test Text Bubble"
                     };
 
-                    if (selectedType == SelectedScriptableObjectType.ObjectBubble)
-                    {
-                        newScriptableObject.TextMessage = newTextMessage;
-
-                        CreateFile(new ObjectBubble(), "TestFolder");
-                    }
-                    if (selectedType == SelectedScriptableObjectType.ObjectPerson)
-                    {
-
-                        //CreateFile(new ObjectPerson(), "TestFolder");
-                    }
-
-                    if (!string.IsNullOrEmpty(newScriptableObjectName) && !string.IsNullOrWhiteSpace(newScriptableObjectName))
-                    {
-                        ObjectBubble newBubble = new ObjectBubble()
-                        {
-                            Intelligence = 1,
-                            BuisinessOrientedness = 2,
-                            Caringness = 3,
-                            HealthandStrength = 4,
-                            TextMessage = "Test Text Bubble"
-                        };
-
-                        // Create new Scriptable Object
-                        //CreateFile(newBubble, "TestFolder");
-                    }
+                    // Create new Scriptable Object
+                    //CreateFile(newBubble, "TestFolder");
                 }
-                else
-                {
-                    Debug.Log("Personality traits exceted the maximum total amount, lower some settings to stay under the collective limit");
-                }
+            }
+
+            GUILayout.Space(30);
+
+            if(GUILayout.Button("TEST BUTTON"))
+            {
+                Debug.Log("Screen: " + (Screen.width - 150));
+
+                Debug.Log("OWOW " + EditorGUIUtility.currentViewWidth);
             }
         }
 
