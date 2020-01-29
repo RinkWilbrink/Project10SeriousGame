@@ -50,17 +50,9 @@ namespace ScriptableObjectTool
         [MenuItem("Create Scriptable Object/Open Tool")]
         static void CreateScriptableObjectWindow()
         {
-            // Initialize the GUI window
-            CreateNewScriptableObject createNewScriptableObject = GetWindow<CreateNewScriptableObject>("Create Scriptable Object");
-            // Call the start function
-            createNewScriptableObject.start();
+            // Initialize the GUI Window
+            GetWindow<CreateNewScriptableObject>("Create Scriptable Object");
         }
-
-        public void start()
-        {
-
-        }
-
         // GUI window code, buttons and other items need to be set here.
         private void OnGUI()
         {
@@ -285,7 +277,7 @@ namespace ScriptableObjectTool
                 }
                 else
                 {
-                    Debug.Log("Personality traits exceted the maximum total amount, lower some settings to stay under the collective limit");
+                    Debug.Log("Personality traits exeted the maximum total amount, lower some settings to stay under the collective limit");
                 }
             }
         }
