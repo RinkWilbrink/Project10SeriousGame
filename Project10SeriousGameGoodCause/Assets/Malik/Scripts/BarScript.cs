@@ -19,7 +19,7 @@ public class BarScript : MonoBehaviour
 
     void ClampTheValues()
     {
-        _impression = Mathf.Clamp(_impression,0,100);
+        _impression = Mathf.Clamp(_impression,0,MaxImpression);
     }
 
     public void AddImpression(float value)
