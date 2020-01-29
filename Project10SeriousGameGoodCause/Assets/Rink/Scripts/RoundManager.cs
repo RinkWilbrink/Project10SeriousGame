@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Check list
- * 
- * 
- */
-
 public class RoundManager : MonoBehaviour
 {
     // Variables
@@ -50,12 +45,14 @@ public class RoundManager : MonoBehaviour
 
         if (affectionCount >= 100)
         {
-            initNewPerson(Random.Range(0, soData.people.Length - 1));
+            //initNewPerson(Random.Range(0, soData.people.Length - 1));
+            initNewPerson(1);
             affectionCount = 0;
         }
 
         affectionSlider.value = affectionCount;
 
+        /*
         // Change the person manually for testing.
         if(Input.GetKeyDown(KeyCode.L))
         {
@@ -104,6 +101,7 @@ public class RoundManager : MonoBehaviour
             // Set the data for the new buttons
             SetButtonData(bubble1, bubble2, bubble3, bubble4);
         }
+        */
     }
 
     /// <summary>Start a new round, This will set a new person and should also reset some other stats</summary>

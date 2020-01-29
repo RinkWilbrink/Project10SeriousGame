@@ -9,8 +9,8 @@ public class Person : MonoBehaviour
     [SerializeField] public ObjectPerson objectPerson;
 
     [Header("Asset information")]
-    [SerializeField] private SpriteRenderer Face;
-    [SerializeField] private SpriteRenderer Body;
+    [SerializeField] private UnityEngine.UI.Image Face;
+    [SerializeField] private UnityEngine.UI.Image Body;
 
     [Header("Gameplay stats")]
     // The amount the person has been confinced that he should help/donate.
