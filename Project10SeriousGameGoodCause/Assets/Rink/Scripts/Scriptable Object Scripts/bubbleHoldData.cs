@@ -6,11 +6,6 @@ public class bubbleHoldData : MonoBehaviour
 {
     // Variables
     [SerializeField] private ObjectBubble bubbleData_ObjectBubble;
-    
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

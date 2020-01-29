@@ -15,7 +15,7 @@ public class ScriptableObjectData : MonoBehaviour
     */
     [Space(5)]
     [Header("List of with all objects")]
-    [SerializeField] public List<List<Object>> messageList = new List<List<Object>>();
+    [SerializeField] public List<List<ObjectBubble>> messageList = new List<List<ObjectBubble>>();
 
     void Awake()
     {
@@ -25,14 +25,14 @@ public class ScriptableObjectData : MonoBehaviour
         // Go through all objects and at them to their appropriate List in the Global List
         for (int round = 1; round <= messages.Length; round++)
         {
-            List<Object> roundList = new List<Object>();
+            List<ObjectBubble> roundList = new List<ObjectBubble>();
             for (int i = 0; i < messages.Length; i++)
             {
                 string[] name = messages[i].name.Split('_');
                 // Check current message object if it should be added to this round
                 if (name[0] == round.ToString())
                 {
-                    roundList.Add(messages[i]);
+                    roundList.Add((ObjectBubble)messages[i]);
                 }
 
                 // Cleanup memory from local variables

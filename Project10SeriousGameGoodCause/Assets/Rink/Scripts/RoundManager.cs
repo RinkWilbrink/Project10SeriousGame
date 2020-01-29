@@ -12,7 +12,7 @@ public class RoundManager : MonoBehaviour
     // Variables
     [Header("Round attributes")]
     [SerializeField] public byte Round;
-    [SerializeField] public float AffectionCount = 0;
+    public float affectionCount;
 
     [Header("Scriptable Object attributes")]
     [SerializeField] public PersonManager personManager;
@@ -21,12 +21,15 @@ public class RoundManager : MonoBehaviour
     [Header("UI Text Bubble Buttons")]
     [SerializeField] private GameObject[] buttons;
 
+    [Header("Slider")]
+    [SerializeField] private UnityEngine.UI.Slider affectionSlider;
+
     // References to other scripts and Components
     private ScriptableObjectData soData;
 
     // private variables
     //private float counter;
-    
+
     void Start()
     {
         // Set the ScriptableObjectData variables.
@@ -36,16 +39,22 @@ public class RoundManager : MonoBehaviour
 
         // Set a new person
         initNewPerson(0);
+
+        SetButtonData(soData.messageList.ToArray()[Round - 1].ToArray()[0], soData.messageList.ToArray()[Round - 1].ToArray()[1], 
+                      soData.messageList.ToArray()[Round - 1].ToArray()[2], soData.messageList.ToArray()[Round - 1].ToArray()[3]);
     }
 
     void Update()
     {
         // TODO: make a function that can start a new round
 
-        if (personInDoor.affectionMeter >= 100)
+        if (affectionCount >= 100)
         {
             initNewPerson(Random.Range(0, soData.people.Length - 1));
+            affectionCount = 0;
         }
+
+        affectionSlider.value = affectionCount;
 
         // Change the person manually for testing.
         if(Input.GetKeyDown(KeyCode.L))
@@ -160,20 +169,19 @@ public class RoundManager : MonoBehaviour
         //float care = ((ClickedObjectBubble.Caringness / personInDoor.objectPerson.Caringness) * 0.001f) + 0.5f;
         //float health = ((ClickedObjectBubble.HealthandStrength / personInDoor.objectPerson.HealthandStrength) * 0.001f) + 1f;
 
-        float intelligence =    (ClickedObjectBubble.Intelligence             / (personInDoor.objectPerson.Intelligence));
-        float buisiness =       (ClickedObjectBubble.BuisinessOrientedness    / (personInDoor.objectPerson.BuisinessOrientedness));
-        float care =            (ClickedObjectBubble.Caringness               / (personInDoor.objectPerson.Caringness));
-        float health =          (ClickedObjectBubble.HealthandStrength        / (personInDoor.objectPerson.HealthandStrength));
+        float intelligence =    (ClickedObjectBubble.Intelligence             / (personInDoor.objectPerson.Intelligence) + 0.1f);
+        float buisiness =       (ClickedObjectBubble.BuisinessOrientedness    / (personInDoor.objectPerson.BuisinessOrientedness) + 0.1f);
+        float care =            (ClickedObjectBubble.Caringness               / (personInDoor.objectPerson.Caringness) + 0.1f);
+        float health =          (ClickedObjectBubble.HealthandStrength        / (personInDoor.objectPerson.HealthandStrength) + 0.1f);
 
         Debug.LogFormat("I {0} / B {1} / C {2} / H {3}", intelligence, buisiness, care, health);
 
-        //Debug.Log(AffectionCount);
+        float lastAffectioCount = affectionCount;
 
-        float lastAffectioCount = AffectionCount;
+        affectionCount += (intelligence * buisiness * care * health) * 10;
 
-        AffectionCount += (intelligence * buisiness * care * health);
-
-        Debug.LogFormat("name: {0} | AffectionCount: {1} | added AffectionCount: {2}", ClickedObjectBubble.name, AffectionCount, AffectionCount - lastAffectioCount);
+        Debug.LogFormat("name: {0} | affectionMeter: {1} | added affectionMeter: {2}", 
+            ClickedObjectBubble.name, affectionCount, affectionCount - lastAffectioCount);
     }
 }
 

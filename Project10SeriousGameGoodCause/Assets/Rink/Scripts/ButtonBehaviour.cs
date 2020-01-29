@@ -10,7 +10,7 @@ public class ButtonBehaviour : MonoBehaviour
     void Start()
     {
         // set the object data to the correct script instance.
-        objectData = GameObject.Find("Game Manager").GetComponent<ScriptableObjectData>();
+        objectData = GameObject.Find("Round Manager").GetComponent<ScriptableObjectData>();
     }
     
     public void OnBubbleClick(GameObject bubbleObject){
